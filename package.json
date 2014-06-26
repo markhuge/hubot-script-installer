@@ -3,6 +3,7 @@
   "description": "An automated installed for your external hubot-script",
   "version": "0.0.1",
   "author": "Mark Wilkerson <mark@segfawlt.net>",
+  "contributors": ["Tyler Garrett <jtgarrett123@gmail.com>"],
   "config": {
     "blanket": {
       "pattern": "hubot-script-installer/index.js",
