@@ -33,3 +33,38 @@ var update = exports.update = function(externalScriptsFile, fileWithName, callba
     });
   });
 };
+
+
+// should take path to external-scripts, path to package.json, optional callback
+// it directly edit external scripts file with removal of name from package.json["name"]
+var uninstall = exports.uninstall = function(externalScriptsFile, fileWithName, callback) {
+  read(externalScriptsFile, function(err, data) {
+    var externalScripts = data;
+    read(fileWithName, function(err, data) {
+      var packageJSON = data;
+      var toSplice = externalScripts.indexOf(packageJSON.name);
+      if (toSplice == -1) {
+        if(callback && typeof callback === "function") {
+          return callback(err);
+        } else {
+          return err
+        }
+      } 
+      externalScripts.splice(toSplice, 1);
+      externalScripts = JSON.stringify(externalScripts);
+
+      fs.writeFile(externalScriptsFile, externalScripts, function(err) {
+        if(err) {
+            console.log(err);
+        }
+        if(callback && typeof callback === "function") {
+          callback();
+        }
+      });
+    });
+  });
+};
+
+
+
+// uninstall('./test/fixtures/external-scripts.json', './test/fixtures/package.json');
