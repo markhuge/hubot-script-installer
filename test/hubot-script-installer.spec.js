@@ -69,4 +69,56 @@ describe("Hubot Script Installer", function(){
     });
   })
 
+  describe("#uninstall()", function() {
+    before(function(done) {
+      fs.writeFile(externalScriptsWithMultiple, "[\"existing-script\",\"new-script\",\"other-script\"]", function(err) {
+          if(err) {
+              console.log(err);
+          }
+          done();
+      });
+    })
+
+    after(function(done) {
+      fs.writeFile(externalScriptsWithMultiple, "[\"existing-script\",\"new-script\",\"other-script\"]", function(err) {
+          if(err) {
+              console.log(err);
+          }
+          done();
+      });
+    })
+
+    it("Should not edit file if script to uninstall is not there", function(done){
+      installer.uninstall(externalScriptsWithMultiple, wrongPackageJson, function(err) {
+        if (err) {
+          return err;
+        }
+        fs.readFile(externalScriptsWithMultiple, {encoding: 'utf8'}, function(err, results) {
+          results = JSON.parse(results);
+          expect(results).to.be.an('array');
+          expect(results).to.have.length(3);
+          expect(results).to.have.deep.property('[0]','existing-script');
+          expect(results).to.have.deep.property('[1]','new-script');
+          expect(results).to.have.deep.property('[2]','other-script');
+          done();
+        });
+      });
+    });
+
+    it("Removes script from external-scripts.json", function(done){
+      installer.uninstall(externalScriptsWithMultiple, packageJson, function(err) {
+        if (err) {
+          return err;
+        }
+        fs.readFile(externalScriptsWithMultiple, {encoding: 'utf8'}, function(err, results) {
+          results = JSON.parse(results);
+          expect(results).to.be.an('array');
+          expect(results).to.have.length(2);
+          expect(results).to.have.deep.property('[0]','existing-script');
+          expect(results).to.have.deep.property('[1]','other-script');
+          done();
+        });
+      });
+    });
+  });
 });
