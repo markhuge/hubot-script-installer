@@ -39,7 +39,7 @@ describe("Hubot Script Installer", function(){
     });
   });
 
-  describe("#update()", function() {
+  describe("#install()", function() {
 
     before(function(done) {
       fs.writeFile(externalScripts, "[\"existing-script\"]", function(err) {
@@ -60,7 +60,7 @@ describe("Hubot Script Installer", function(){
     })
 
     it("Should not add to external-scripts if already there",function(done){
-      installer.update(externalScripts, existingPackageJson, function(err) {
+      installer.install(externalScripts, existingPackageJson, function(err) {
         if (err) {
           console.log(err);
         }
@@ -76,7 +76,7 @@ describe("Hubot Script Installer", function(){
     });
 
     it("Adds script to external-scripts.json",function(done){
-      installer.update(externalScripts, packageJson, function(err) {
+      installer.install(externalScripts, packageJson, function(err) {
         if (err) {
           console.log(err);
         }

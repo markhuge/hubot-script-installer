@@ -32,7 +32,7 @@ var getFileData = function(externalScriptsFile, packageJsonFile, callback) {
 
 // should take path to external-scripts, path to package.json, optional callback
 // it directly edits external scripts file with package.json["name"]
-var update = exports.update = function(externalScriptsFile, packageJsonFile, callback) {
+var install = exports.install = function(externalScriptsFile, packageJsonFile, callback) {
   getFileData(externalScriptsFile, packageJsonFile, function(err, fileData) {
     if (err) {
       return callback(err);
