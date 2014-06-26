@@ -12,7 +12,8 @@ Hubot scripts can installed as package.json dependencies, but require an extra s
 
 In your project's package.json:
 
-```JSON
+
+```
 {
   "name": "myscript",
   "description": "my awesome hubot script",
@@ -24,4 +25,53 @@ In your project's package.json:
     "uninstall" { "./node_modules/.bin/hubot-script-installer --uninstall" }
   }
 }
+```
+
+### Methods
+
+#### installer.read()
+Takes filepath amd callback as arguments.
+
+Reads from json file, and executes callback with returned data
+
+```
+installer.read(filepath, function (err, data) {
+	console.log(data) // -> {name: "package-name"}
+})
+```
+
+#### installer.install()
+Takes 2 filepaths and a callback as arguments.
+
+First filepath is for the file to get updated (external-scripts.json).
+
+Second filepath is for the package.json that has the name of script to add to external-scripts.json
+
+Nothing is passed into callback, unless there is an error.
+
+```
+installer.install(pathToExternalScripts, pathToPackageJson, callback(err) {
+	if (err) {
+	//err handling
+	}
+	// add stuff here to execute after file is updated.
+})
+```
+#### installer.uninstall()
+
+Takes 2 filepaths and a callback as arguments.
+
+First filepath is for the file to be updated (external-scripts.json).
+
+Second filepath is for the package.json that has the name of script to remove from external-scripts.json
+
+Nothing is passed into callback, unless there is an error.
+
+```
+installer.uninstall(pathToExternalScripts, pathToPackageJson, callback(err) {
+	if (err) {
+	//err handling
+	}
+	// add stuff here to execute after file is updated.
+})
 ```
