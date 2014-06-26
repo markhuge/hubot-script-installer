@@ -1,7 +1,7 @@
 {
   "name": "hubot-script-installer",
   "description": "An automated installed for your external hubot-script",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Mark Wilkerson <mark@segfawlt.net>",
   "config": {
     "blanket": {
@@ -13,7 +13,11 @@
     }
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec",
+    "test-w": "mocha -w -R spec"
+  },
+  "bin": {
+    "hubot-script-installer": "./bin/hubot-script-installer"
   },
   "devDependencies": {
     "mocha-lcov-reporter": "0.0.1",
@@ -24,6 +28,7 @@
     "blanket": "~1.1.6"
   },
   "dependencies": {
+    "commander": "~2.2.0",
     "read-json": "0.0.0"
   }
 }
