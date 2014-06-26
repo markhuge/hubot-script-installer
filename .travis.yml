@@ -7,3 +7,6 @@ matrix:
   allow_failures:
   - node_js:
     - '0.8'
+env:
+  global:
+    secure: c0bb4nNxT7Zu8xvsvTBHdnXKhA49BmExAM9fj/uxWdl1r3te1Bjeq91DYW+rO5dnsof/RB2DR586d4ouxoB+PSmt/M5laDFFhmP4OwRne0CAcq8nnjWgoCmcR0J0gINYy4rMA0ujBtSaKV2hIms1HP3hzKMiI7FGNNpKRyTq5i0=

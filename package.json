@@ -16,8 +16,10 @@
     }
   },
   "scripts": {
-    "test": "mocha -R spec && mocha -r blanket -R travis-cov",
-    "test-w": "mocha -w -R spec"
+    "test": "mocha -R spec && npm run travis-cov && npm run coveralls",
+    "test-w": "mocha -w -R spec",
+    "travis-cov": "mocha -r blanket -R travis-cov",
+    "coveralls": "mocha -r blanket -R mocha-lcov-reporter | coveralls"
   },
   "bin": {
     "hubot-script-installer": "./bin/hubot-script-installer"
