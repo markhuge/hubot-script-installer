@@ -15,12 +15,12 @@ var getFileData = function(externalScriptsFile, packageJsonFile, callback) {
   var fileData = {};
   read(externalScriptsFile, function(err, data) {
     if (err) {
-      callback(err);
+      return callback(err);
     }
   fileData.externalScripts = data;
     read(packageJsonFile, function(err, data) {
       if (err) {
-        callback(err);
+        return callback(err);
       }
       fileData.packageJson = data;
       if(callback && typeof callback === "function") {
@@ -38,7 +38,7 @@ var install = exports.install = function(externalScriptsFile, packageJsonFile, c
       return callback(err);
     }
     if (fileData.externalScripts.indexOf(fileData.packageJson.name) !== -1) {
-      return callback(err);
+      return callback("Hubot script already installed");
     }
     fileData.externalScripts.push(fileData.packageJson.name);
     var externalScriptsStr = JSON.stringify(fileData.externalScripts);
@@ -62,7 +62,7 @@ var uninstall = exports.uninstall = function(externalScriptsFile, packageJsonFil
     }
     var toSplice = fileData.externalScripts.indexOf(fileData.packageJson.name);
     if (toSplice === -1) {
-        return callback(err);
+        return callback("Hubot script already uninstalled");
     } 
     fileData.externalScripts.splice(toSplice, 1);
     var externalScriptsStr = JSON.stringify(fileData.externalScripts);

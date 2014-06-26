@@ -13,7 +13,11 @@
     }
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec",
+    "test-w": "mocha -w -R spec"
+  },
+  "bin": {
+    "hubot-script-installer": "./bin/hubot-script-installer"
   },
   "devDependencies": {
     "mocha-lcov-reporter": "0.0.1",
@@ -24,6 +28,7 @@
     "blanket": "~1.1.6"
   },
   "dependencies": {
+    "commander": "^2.2.0",
     "read-json": "0.0.0"
   }
 }
