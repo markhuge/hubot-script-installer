@@ -2,8 +2,10 @@
 var expect    = require('chai').expect,
     installer = require('../index'),
     fs        = require('fs'),
-    externalScripts   = __dirname + '/fixtures/external-scripts.json',
-    packageJson = __dirname + '/fixtures/package.json';
+    externalScripts               = __dirname + '/fixtures/external-scripts.json',
+    externalScriptsWithMultiple   = __dirname + '/fixtures/external-scripts-with2.json',
+    packageJson                   = __dirname + '/fixtures/package.json',
+    wrongPackageJson              = __dirname + '/fixtures/packageWrong.json';
 
 
 describe("Hubot Script Installer", function(){
@@ -18,7 +20,7 @@ describe("Hubot Script Installer", function(){
     })
 
     it("Reads external-scripts.json if it exists",function(done){
-      installer.read(externalScripts, function(err,manifest){
+      installer.read(externalScripts, function(err, manifest){
         expect(manifest).to.be.an('array');
         expect(manifest).to.have.length(1);
         expect(manifest).to.have.deep.property('[0]','existing-script');
@@ -52,15 +54,17 @@ describe("Hubot Script Installer", function(){
           done();
       });
     })
+
     it("Adds script to external-scripts.json",function(done){
-      // Open file and see that both the old and new scripts are present
       installer.update(externalScripts, packageJson, function() {
-        var verify = require(externalScripts);
-        expect(verify).to.be.an('array');
-        expect(verify).to.have.length(2);
-        expect(verify).to.have.deep.property('[0]','existing-script');
-        expect(verify).to.have.deep.property('[1]', 'new-script');
-        done();
+        fs.readFile(externalScripts, {encoding: 'utf8'}, function(err, results) {
+          results = JSON.parse(results);
+          expect(results).to.be.an('array');
+          expect(results).to.have.length(2);
+          expect(results).to.have.deep.property('[0]','existing-script');
+          expect(results).to.have.deep.property('[1]', 'new-script');
+          done();
+        });
       });
     });
   })
