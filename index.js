@@ -1,73 +1,45 @@
 /*jslint node: true */
-'use strict';
-var fs   = require('fs'),
-    read = exports.read = require('read-json');
 
-// Takes file path for external-scripts and package, and callback
-// then calls callback with returned data in an obj
-var getFileData = function(externalScriptsFile, packageJsonFile, callback) {
-  var fileData = {};
-  read(externalScriptsFile, function(err, data) {
-    if (err) {
-      return callback(err);
+var fs = require('fs');
+
+this.read = function(file,callback) {
+    try {
+      data = fs.readFileSync(file);
+      json = JSON.parse(data);
+    } catch (ex) {
+      return callback("error: " + file + " is not a valid json file");
     }
-  fileData.externalScripts = data;
-    read(packageJsonFile, function(err, data) {
-      if (err) {
-        return callback(err);
-      }
-      fileData.packageJson = data;
-      if(callback && typeof callback === "function") {
-        callback(undefined, fileData);
-      }
-    });
+    return callback(undefined,json);
+};
+
+this.getName = function (file) {
+  file = file || __dirname + "/../../package.json";
+  return require(file).name;
+   
+};
+
+
+this.install = function (file,callback) {
+  var name = this.getName();
+  this.read(file, function(err,data){
+    if (err) { return callback(err); }
+    data.push(name);
+    fs.writeFile(file,JSON.stringify(data),callback);
+  
   });
 };
 
-// should take path to external-scripts, path to package.json, optional callback
-// it directly edits external scripts file with package.json["name"]
-var install = exports.install = function(externalScriptsFile, packageJsonFile, callback) {
-  getFileData(externalScriptsFile, packageJsonFile, function(err, fileData) {
-    if (err) {
-      return callback(err);
-    }
-    if (fileData.externalScripts.indexOf(fileData.packageJson.name) !== -1) {
-      return callback("Hubot script already installed");
-    }
-    fileData.externalScripts.push(fileData.packageJson.name);
-    var externalScriptsStr = JSON.stringify(fileData.externalScripts);
-    fs.writeFile(externalScriptsFile, externalScriptsStr, function(err) {
-      if(err) {
-          return callback(err);
-      }
-      if(callback && typeof callback === "function") {
-        callback();
-      }
-    });
-  })   
-};
 
-// should take path to external-scripts, path to package.json, optional callback
-// it directly edit external scripts file with removal of name from package.json["name"]
-var uninstall = exports.uninstall = function(externalScriptsFile, packageJsonFile, callback) {
-  getFileData(externalScriptsFile, packageJsonFile, function(err, fileData) {
-    if (err) {
-      return callback(err);
-    }
-    var toSplice = fileData.externalScripts.indexOf(fileData.packageJson.name);
-    if (toSplice === -1) {
-        return callback("Hubot script already uninstalled");
-    } 
-    fileData.externalScripts.splice(toSplice, 1);
-    var externalScriptsStr = JSON.stringify(fileData.externalScripts);
-
-    fs.writeFile(externalScriptsFile, externalScriptsStr, function(err) {
-      if(err) {
-          return callback(err);
-      }
-      if(callback && typeof callback === "function") {
-        callback();
-      }
-    });
+this.uninstall = function (file,callback) {
+  var name = this.getName();
+  
+  this.read(file, function(err,data){
+    if (err) { return callback(err); }
+    var index = data.indexOf(name);
+    if (index >= 0) {
+      data.splice(index,1);
+      fs.writeFile(file,JSON.stringify(data),callback);
+    } else { callback("Script '" + name + "' not found in" + file); }
+    
   });
 };
