@@ -19,7 +19,7 @@ describe("Hubot Script Installer", function(){
         }
         done();
       });
-    })
+    });
 
     it("Reads external-scripts.json if it exists",function(done){
       installer.read(externalScripts, function(err, manifest){
@@ -48,7 +48,7 @@ describe("Hubot Script Installer", function(){
         }
         done();
       });
-    })
+    });
 
     after(function(done) {
       fs.writeFile(externalScripts, '["existing-script"]', function(err) {
@@ -57,7 +57,7 @@ describe("Hubot Script Installer", function(){
         }
         done();
       });
-    })
+    });
 
     it("Should not add to external-scripts if already there",function(done){
       installer.install(externalScripts, existingPackageJson, function(err) {
@@ -90,7 +90,7 @@ describe("Hubot Script Installer", function(){
         });
       });
     });
-  })
+  });
 
   describe("#uninstall()", function() {
     before(function(done) {
@@ -100,7 +100,7 @@ describe("Hubot Script Installer", function(){
         }
         done();
       });
-    })
+    });
 
     after(function(done) {
       fs.writeFile(externalScriptsWithMultiple, '["existing-script","new-script","other-script"]', function(err) {
@@ -109,7 +109,7 @@ describe("Hubot Script Installer", function(){
           }
           done();
       });
-    })
+    });
 
     it("Should not edit file if script to uninstall is not there", function(done){
       installer.uninstall(externalScriptsWithMultiple, wrongPackageJson, function(err) {
