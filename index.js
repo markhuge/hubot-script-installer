@@ -4,8 +4,8 @@ var fs = require('fs');
 
 this.read = function(file,callback) {
     try {
-      data = fs.readFileSync(file);
-      json = JSON.parse(data);
+      var data = fs.readFileSync(file);
+      var json = JSON.parse(data);
     } catch (ex) {
       return callback("error: " + file + " is not a valid json file");
     }
