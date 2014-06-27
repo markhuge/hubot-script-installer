@@ -84,9 +84,11 @@ describe("Hubot Script Installer", function(){
 
 
   it("Throw error when uninstalling non-existant script", function(done){
+    sinon.stub(installer, 'getName').returns('testscript');
     installer.uninstall(fixture, function (err) {
       expect(err).to.be.ok
       done();
+      installer.getName.restore();
     });
   });
 
