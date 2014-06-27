@@ -1,13 +1,7 @@
 /*jslint node: true */
 'use strict';
-var fs = require('fs');
-
-// read from json file, and pass it into callback function as 2nd argument
-// read(filepath, function (err, manifest) {
-//   manifest.name = 'packageName'
-// })
-
-var read = exports.read = require('read-json');
+var fs   = require('fs'),
+    read = exports.read = require('read-json');
 
 // Takes file path for external-scripts and package, and callback
 // then calls callback with returned data in an obj
