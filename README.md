@@ -1,4 +1,4 @@
-hubot-script-installer
+hubot-script-installer ![BuilD Status](https://travis-ci.org/markhuge/hubot-script-installer.svg) [![Code Climate](https://codeclimate.com/github/markhuge/hubot-script-installer.png)](https://codeclimate.com/github/markhuge/hubot-script-installer) [![Coverage Status](https://img.shields.io/coveralls/markhuge/hubot-script-installer.svg)](https://coveralls.io/r/markhuge/hubot-script-installer?branch=master)
 ======================
 
 >Install external hubot scripts via package.json
