@@ -13,7 +13,7 @@ describe("Hubot Script Installer", function(){
   describe("#read()", function() {
     
     before(function(done) {
-      fs.writeFile(externalScripts, "[\"existing-script\"]", function(err) {
+      fs.writeFile(externalScripts, '["existing-script"]', function(err) {
         if(err) {
             console.log(err);
         }
@@ -42,7 +42,7 @@ describe("Hubot Script Installer", function(){
   describe("#install()", function() {
 
     before(function(done) {
-      fs.writeFile(externalScripts, "[\"existing-script\"]", function(err) {
+      fs.writeFile(externalScripts, '["existing-script"]', function(err) {
         if(err) {
             console.log(err);
         }
@@ -51,7 +51,7 @@ describe("Hubot Script Installer", function(){
     })
 
     after(function(done) {
-      fs.writeFile(externalScripts, "[\"existing-script\"]", function(err) {
+      fs.writeFile(externalScripts, '["existing-script"]', function(err) {
         if(err) {
             console.log(err);
         }
@@ -94,7 +94,7 @@ describe("Hubot Script Installer", function(){
 
   describe("#uninstall()", function() {
     before(function(done) {
-      fs.writeFile(externalScriptsWithMultiple, "[\"existing-script\",\"new-script\",\"other-script\"]", function(err) {
+      fs.writeFile(externalScriptsWithMultiple, '["existing-script","new-script","other-script"]', function(err) {
         if(err) {
             console.log(err);
         }
@@ -103,7 +103,7 @@ describe("Hubot Script Installer", function(){
     })
 
     after(function(done) {
-      fs.writeFile(externalScriptsWithMultiple, "[\"existing-script\",\"new-script\",\"other-script\"]", function(err) {
+      fs.writeFile(externalScriptsWithMultiple, '["existing-script","new-script","other-script"]', function(err) {
           if(err) {
               console.log(err);
           }
