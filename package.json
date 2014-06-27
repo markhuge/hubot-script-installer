@@ -16,9 +16,9 @@
     }
   },
   "scripts": {
-    "test": "mocha -R spec && npm run travis-cov && npm run coveralls",
+    "test": "mocha -R spec && npm run ci-cov && npm run coveralls",
     "watch": "mocha -w -R spec",
-    "travis-cov": "mocha -r blanket -R travis-cov",
+    "ci-cov": "mocha -r blanket -R travis-cov",
     "coveralls": "mocha -r blanket -R mocha-lcov-reporter | coveralls"
   },
   "bin": {
