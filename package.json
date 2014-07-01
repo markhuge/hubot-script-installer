@@ -1,7 +1,7 @@
 {
   "name": "hubot-script-installer",
   "description": "An automated installed for your external hubot-script",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "author": "Mark Wilkerson <mark@segfawlt.net>",
   "contributors": [
     "Tyler Garrett <tyler@tgrrtt.com>"
