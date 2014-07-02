@@ -41,16 +41,12 @@ installer.read(filepath, function (err, data) {
 ```
 
 #### installer.install()
-Takes 2 filepaths and a callback as arguments.
-
-First filepath is for the file to get updated (external-scripts.json).
-
-Second filepath is for the package.json that has the name of script to add to external-scripts.json
+Takes filepath to external-scripts.json and a callback.
 
 Nothing is passed into callback, unless there is an error.
 
 ```
-installer.install(pathToExternalScripts, pathToPackageJson, callback(err) {
+installer.install(pathToExternalScripts, callback(err) {
 	if (err) {
 	//err handling
 	}
@@ -59,16 +55,10 @@ installer.install(pathToExternalScripts, pathToPackageJson, callback(err) {
 ```
 #### installer.uninstall()
 
-Takes 2 filepaths and a callback as arguments.
-
-First filepath is for the file to be updated (external-scripts.json).
-
-Second filepath is for the package.json that has the name of script to remove from external-scripts.json
-
-Nothing is passed into callback, unless there is an error.
+Takes filepath to external-scripts.json and a callback.
 
 ```
-installer.uninstall(pathToExternalScripts, pathToPackageJson, callback(err) {
+installer.uninstall(pathToExternalScripts, callback(err) {
 	if (err) {
 	//err handling
 	}

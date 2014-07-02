@@ -10,36 +10,28 @@ program
   .option('-u, --uninstall', 'Uninstalls script')
   .parse(process.argv);
 
-var externalScripts, packageJson;
-
 //tests if this repo is installed as dependency on some other module 
-if (/node_modules/.test(__dirname)) {
-  // this should work if run from postInstall script
-  // shit will break otherwise(cuz of process.cwd())
-  externalScripts = path.join(process.cwd(),'external-scripts.json');
-  packageJson = path.join(process.cwd(),'package.json');
-} else {
-  //for development
-  externalScripts = path.join(__dirname, '../test/fixtures/external-scripts.json');
-  packageJson = path.join(__dirname, '../test/fixtures/package.json');;
-}
+// this should work if run from postInstall script
+// shit will break otherwise(cuz of process.cwd())
+// must be run from project root for this to work on dev (ie dont run when inside bin folder)
+var externalScripts = path.join(process.cwd(),'external-scripts.json');
 
 if (program.uninstall) {
-  installer.uninstall(externalScripts, packageJson, function (err) {
+  installer.uninstall(externalScripts, function (err) {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
-      console.log("Hubot script uninstalled")
+      console.log("Hubot script uninstalled");
     }
   });
 }
 
 else {
-  installer.install(externalScripts, packageJson, function (err) {
+  installer.install(externalScripts, function (err) {
     if (err) {
-        console.log(err)
+        console.log(err);
       } else {
-        console.log("Hubot script installed")
+        console.log("Hubot script installed");
       }
   });
 }
