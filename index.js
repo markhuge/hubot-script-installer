@@ -1,6 +1,7 @@
 /*jslint node: true */
 
 var fs = require('fs');
+var path = require('path');
 
 this.read = function(file,callback) {
     try {
@@ -13,7 +14,7 @@ this.read = function(file,callback) {
 };
 
 this.getName = function (file) {
-  file = file || __dirname + "/../../package.json";
+  file = file || path.join(__dirname, "/../../package.json");
   return require(file).name;
    
 };
